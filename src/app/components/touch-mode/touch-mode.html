@@ -1,8 +1,154 @@
 <div class="touch-mode">
-  <div class="placeholder-container">
-    <div class="dartboard-icon">🎯</div>
-    <h2>{{ message }}</h2>
-    <p>{{ description }}</p>
-    <p class="suggestion">For now, please use <strong>Input Mode</strong> or <strong>Calculating Mode</strong> to play.</p>
+  @if (gameState.currentPlayer(); as player) {
+    <div class="current-player-info">
+      <h3>{{ player.name }}'s Turn</h3>
+      <p class="remaining-score">Remaining: <strong>{{ player.currentScore }}</strong> points</p>
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="error-message">{{ errorMessage() }}</div>
+  }
+
+  <div class="dartboard-container">
+    <svg
+      [attr.width]="dartboardSize"
+      [attr.height]="dartboardSize"
+      [attr.viewBox]="'0 0 ' + dartboardSize + ' ' + dartboardSize"
+      class="dartboard"
+      (click)="onDartboardClick($event)">
+
+      <!-- Outer border -->
+      <circle [attr.cx]="centerX" [attr.cy]="centerY" r="276" fill="#000" />
+      <circle [attr.cx]="centerX" [attr.cy]="centerY" r="268" fill="#fff" stroke="#000" stroke-width="1" />
+
+      <!-- Dartboard segments -->
+      @for (segment of segments; track $index; let i = $index) {
+        @let angle = i * 18 - 9;
+        @let nextAngle = (i + 1) * 18 - 9;
+        @let isBlack = i % 2 === 0;
+        @let isRed = i % 2 === 0;
+
+        <!-- Outer single (268 to 252) -->
+        <path
+          [attr.d]="'M ' + centerX + ' ' + centerY +
+                     ' L ' + (centerX + 268 * Math.sin((angle) * Math.PI / 180)) + ' ' + (centerY - 268 * Math.cos((angle) * Math.PI / 180)) +
+                     ' A 268 268 0 0 1 ' + (centerX + 268 * Math.sin((nextAngle) * Math.PI / 180)) + ' ' + (centerY - 268 * Math.cos((nextAngle) * Math.PI / 180)) +
+                     ' L ' + centerX + ' ' + centerY"
+          [attr.fill]="isBlack ? '#000' : '#f5f0e6'"
+          stroke="#d0c8b8"
+          stroke-width="0.5" />
+
+        <!-- Double ring (268 to 252) -->
+        <path
+          [attr.d]="'M ' + (centerX + 252 * Math.sin((angle) * Math.PI / 180)) + ' ' + (centerY - 252 * Math.cos((angle) * Math.PI / 180)) +
+                     ' L ' + (centerX + 268 * Math.sin((angle) * Math.PI / 180)) + ' ' + (centerY - 268 * Math.cos((angle) * Math.PI / 180)) +
+                     ' A 268 268 0 0 1 ' + (centerX + 268 * Math.sin((nextAngle) * Math.PI / 180)) + ' ' + (centerY - 268 * Math.cos((nextAngle) * Math.PI / 180)) +
+                     ' L ' + (centerX + 252 * Math.sin((nextAngle) * Math.PI / 180)) + ' ' + (centerY - 252 * Math.cos((nextAngle) * Math.PI / 180)) +
+                     ' A 252 252 0 0 0 ' + (centerX + 252 * Math.sin((angle) * Math.PI / 180)) + ' ' + (centerY - 252 * Math.cos((angle) * Math.PI / 180))"
+          [attr.fill]="isRed ? '#d32f2f' : '#2e7d32'"
+          stroke="#000"
+          stroke-width="1" />
+
+        <!-- Inner single (252 to 171) -->
+        <path
+          [attr.d]="'M ' + (centerX + 171 * Math.sin((angle) * Math.PI / 180)) + ' ' + (centerY - 171 * Math.cos((angle) * Math.PI / 180)) +
+                     ' L ' + (centerX + 252 * Math.sin((angle) * Math.PI / 180)) + ' ' + (centerY - 252 * Math.cos((angle) * Math.PI / 180)) +
+                     ' A 252 252 0 0 1 ' + (centerX + 252 * Math.sin((nextAngle) * Math.PI / 180)) + ' ' + (centerY - 252 * Math.cos((nextAngle) * Math.PI / 180)) +
+                     ' L ' + (centerX + 171 * Math.sin((nextAngle) * Math.PI / 180)) + ' ' + (centerY - 171 * Math.cos((nextAngle) * Math.PI / 180)) +
+                     ' A 171 171 0 0 0 ' + (centerX + 171 * Math.sin((angle) * Math.PI / 180)) + ' ' + (centerY - 171 * Math.cos((angle) * Math.PI / 180))"
+          [attr.fill]="isBlack ? '#000' : '#f5f0e6'"
+          stroke="#d0c8b8"
+          stroke-width="0.5" />
+
+        <!-- Triple ring (171 to 154) -->
+        <path
+          [attr.d]="'M ' + (centerX + 154 * Math.sin((angle) * Math.PI / 180)) + ' ' + (centerY - 154 * Math.cos((angle) * Math.PI / 180)) +
+                     ' L ' + (centerX + 171 * Math.sin((angle) * Math.PI / 180)) + ' ' + (centerY - 171 * Math.cos((angle) * Math.PI / 180)) +
+                     ' A 171 171 0 0 1 ' + (centerX + 171 * Math.sin((nextAngle) * Math.PI / 180)) + ' ' + (centerY - 171 * Math.cos((nextAngle) * Math.PI / 180)) +
+                     ' L ' + (centerX + 154 * Math.sin((nextAngle) * Math.PI / 180)) + ' ' + (centerY - 154 * Math.cos((nextAngle) * Math.PI / 180)) +
+                     ' A 154 154 0 0 0 ' + (centerX + 154 * Math.sin((angle) * Math.PI / 180)) + ' ' + (centerY - 154 * Math.cos((angle) * Math.PI / 180))"
+          [attr.fill]="isRed ? '#d32f2f' : '#2e7d32'"
+          stroke="#000"
+          stroke-width="1" />
+
+        <!-- Inner single (154 to 41) -->
+        <path
+          [attr.d]="'M ' + (centerX + 41 * Math.sin((angle) * Math.PI / 180)) + ' ' + (centerY - 41 * Math.cos((angle) * Math.PI / 180)) +
+                     ' L ' + (centerX + 154 * Math.sin((angle) * Math.PI / 180)) + ' ' + (centerY - 154 * Math.cos((angle) * Math.PI / 180)) +
+                     ' A 154 154 0 0 1 ' + (centerX + 154 * Math.sin((nextAngle) * Math.PI / 180)) + ' ' + (centerY - 154 * Math.cos((nextAngle) * Math.PI / 180)) +
+                     ' L ' + (centerX + 41 * Math.sin((nextAngle) * Math.PI / 180)) + ' ' + (centerY - 41 * Math.cos((nextAngle) * Math.PI / 180)) +
+                     ' A 41 41 0 0 0 ' + (centerX + 41 * Math.sin((angle) * Math.PI / 180)) + ' ' + (centerY - 41 * Math.cos((angle) * Math.PI / 180))"
+          [attr.fill]="isBlack ? '#000' : '#f5f0e6'"
+          stroke="#d0c8b8"
+          stroke-width="0.5" />
+
+        <!-- Number labels -->
+        @let labelAngle = i * 18;
+        @let labelRadius = 300;
+        <text
+          [attr.x]="centerX + labelRadius * Math.sin(labelAngle * Math.PI / 180)"
+          [attr.y]="centerY - labelRadius * Math.cos(labelAngle * Math.PI / 180)"
+          class="segment-number"
+          text-anchor="middle"
+          dominant-baseline="middle">
+          {{ segment }}
+        </text>
+      }
+
+      <!-- Outer bull (25 points) -->
+      <circle [attr.cx]="centerX" [attr.cy]="centerY" r="41" fill="#2e7d32" stroke="#000" stroke-width="1" />
+
+      <!-- Inner bull (50 points) -->
+      <circle [attr.cx]="centerX" [attr.cy]="centerY" r="16" fill="#d32f2f" stroke="#000" stroke-width="1" />
+
+      <!-- Hit markers -->
+      @for (hit of hits(); track $index) {
+        <g class="hit-marker">
+          <circle [attr.cx]="hit.x" [attr.cy]="hit.y" r="4" fill="yellow" stroke="#ff6b00" stroke-width="2" opacity="0.8" />
+          <text
+            [attr.x]="hit.x"
+            [attr.y]="hit.y - 8"
+            class="hit-score"
+            text-anchor="middle"
+            fill="#ff6b00"
+            font-weight="bold"
+            font-size="10">
+            {{ hit.score }}
+          </text>
+        </g>
+      }
+    </svg>
+  </div>
+
+  <div class="current-round">
+    <h4>Current Round</h4>
+    @if (gameState.activeRound().throws.length > 0) {
+      <div class="throws-display">
+        @for (dartThrow of gameState.activeRound().throws; track $index) {
+          <div class="throw-item">
+            <span class="throw-label">Dart {{ $index + 1 }}:</span>
+            <span class="throw-value">
+              @if (dartThrow.multiplier === 1) { {{ dartThrow.value }} }
+              @if (dartThrow.multiplier === 2) { D{{ dartThrow.value }} }
+              @if (dartThrow.multiplier === 3) { T{{ dartThrow.value }} }
+            </span>
+            <span class="throw-score">{{ dartThrow.score }} pts</span>
+          </div>
+        }
+      </div>
+      <div class="round-total">
+        <strong>Round Total:</strong> {{ gameState.activeRound().totalScore }} points
+      </div>
+    } @else {
+      <p class="no-throws">Tap the dartboard to add throws</p>
+    }
+  </div>
+
+  <div class="round-actions">
+    <button class="clear-btn" (click)="clearRound()">Clear</button>
+    <button class="submit-btn" (click)="submitRound()" [disabled]="gameState.activeRound().throws.length === 0">
+      Submit Round
+    </button>
   </div>
 </div>

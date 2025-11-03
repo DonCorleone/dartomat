@@ -9,23 +9,29 @@
       <button class="reset-btn" (click)="resetGame()">New Game</button>
     </div>
 
-    <!-- Scoreboard -->
-    <app-scoreboard></app-scoreboard>
-
-    <!-- Show appropriate input mode based on config -->
-    @if (!gameState.isGameFinished()) {
-      @if (gameState.config()?.inputMode === 'calculating') {
-        <app-calculating-mode></app-calculating-mode>
-      } @else if (gameState.config()?.inputMode === 'input') {
-        <app-input-mode></app-input-mode>
-      } @else if (gameState.config()?.inputMode === 'touch') {
+    @if (gameState.config()?.inputMode === 'touch' && !gameState.isGameFinished()) {
+      <!-- Touch mode: Landscape layout with scoreboard on side -->
+      <div class="touch-mode-layout">
+        <app-scoreboard></app-scoreboard>
         <app-touch-mode></app-touch-mode>
-      }
-    } @else {
-      <!-- Game finished -->
-      <div class="game-finished">
-        <button class="new-game-btn" (click)="resetGame()">Start New Game</button>
       </div>
+    } @else {
+      <!-- Portrait layout for other modes -->
+      <app-scoreboard></app-scoreboard>
+
+      <!-- Show appropriate input mode based on config -->
+      @if (!gameState.isGameFinished()) {
+        @if (gameState.config()?.inputMode === 'calculating') {
+          <app-calculating-mode></app-calculating-mode>
+        } @else if (gameState.config()?.inputMode === 'input') {
+          <app-input-mode></app-input-mode>
+        }
+      } @else {
+        <!-- Game finished -->
+        <div class="game-finished">
+          <button class="new-game-btn" (click)="resetGame()">Start New Game</button>
+        </div>
+      }
     }
   }
 </div>
