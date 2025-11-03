@@ -1,0 +1,98 @@
+<div class="input-mode">
+  <h2>Input Mode</h2>
+
+  @if (gameState.currentPlayer(); as player) {
+    <div class="current-player-info">
+      <h3>{{ player.name }}'s Turn</h3>
+      <p class="remaining-score">Remaining: <strong>{{ player.currentScore }}</strong> points</p>
+    </div>
+
+    <div class="current-round">
+      <h4>Current Round</h4>
+      <div class="throws-display">
+        @for (throw of gameState.activeRound().throws; track $index) {
+          <div class="throw-item">
+            <span class="throw-label">Dart {{ $index + 1 }}:</span>
+            <span class="throw-value">
+              @if (throw.multiplier === 1) {
+                {{ throw.value }}
+              } @else if (throw.multiplier === 2) {
+                D{{ throw.value }}
+              } @else {
+                T{{ throw.value }}
+              }
+            </span>
+            <span class="throw-score">{{ throw.score }} pts</span>
+          </div>
+        }
+        @if (gameState.activeRound().throws.length === 0) {
+          <p class="no-throws">No darts thrown yet</p>
+        }
+      </div>
+      <div class="round-total">
+        <strong>Round Total: {{ gameState.activeRound().totalScore }}</strong>
+      </div>
+    </div>
+
+    @if (errorMessage()) {
+      <div class="error-message">{{ errorMessage() }}</div>
+    }
+
+    <div class="dart-input">
+      <div class="multiplier-selector">
+        <button
+          [class.active]="dartMultiplier() === 1"
+          (click)="setMultiplier(1)">
+          Single
+        </button>
+        <button
+          [class.active]="dartMultiplier() === 2"
+          (click)="setMultiplier(2)">
+          Double
+        </button>
+        <button
+          [class.active]="dartMultiplier() === 3"
+          (click)="setMultiplier(3)">
+          Triple
+        </button>
+      </div>
+
+      <div class="number-pad">
+        @for (num of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]; track num) {
+          <button (click)="setDartValue(num)">{{ num }}</button>
+        }
+        <button class="bull-button" (click)="setDartValue(25)">Bull (25)</button>
+      </div>
+
+      <div class="selected-dart">
+        @if (dartValue()) {
+          Selected:
+          <strong>
+            @if (dartMultiplier() === 1) {
+              {{ dartValue() }}
+            } @else if (dartMultiplier() === 2) {
+              D{{ dartValue() }}
+            } @else {
+              T{{ dartValue() }}
+            }
+          </strong>
+          ({{ dartValue()! * dartMultiplier() }} points)
+        } @else {
+          Select a number above
+        }
+      </div>
+
+      <button class="add-throw-btn" (click)="addThrow()">Add Throw</button>
+    </div>
+
+    <div class="round-actions">
+      <button class="clear-btn" (click)="clearRound()">Clear Round</button>
+      <button
+        class="submit-btn"
+        [disabled]="gameState.activeRound().throws.length === 0"
+        (click)="submitRound()">
+        Submit Round
+      </button>
+    </div>
+  }
+</div>

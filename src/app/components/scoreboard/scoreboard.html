@@ -1,0 +1,33 @@
+<div class="scoreboard">
+  <h2>Scoreboard</h2>
+
+  <div class="players" [style.grid-template-columns]="'repeat(' + columnCount() + ', 1fr)'" [class.multi-column]="columnCount() > 1">
+    @for (player of gameState.allPlayers(); track player.id) {
+      <div
+        class="player-card"
+        [class.current-player]="gameState.currentPlayer()?.id === player.id"
+        [class.winner]="player.hasWon">
+        <div class="player-info">
+          <h3>{{ player.name }}</h3>
+          @if (gameState.currentPlayer()?.id === player.id) {
+            <span class="current-badge">Current Turn</span>
+          }
+          @if (player.hasWon) {
+            <span class="winner-badge">Winner!</span>
+          }
+        </div>
+        <div class="player-score">
+          <span class="score-value">{{ player.currentScore }}</span>
+          <span class="score-label">points</span>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (gameState.isGameFinished() && gameState.gameWinner(); as winner) {
+    <div class="game-over">
+      <h2>Game Over!</h2>
+      <p>{{ winner.name }} wins!</p>
+    </div>
+  }
+</div>

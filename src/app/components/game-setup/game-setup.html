@@ -1,0 +1,60 @@
+<div class="game-setup">
+  <h1>Dartomat - Game Setup</h1>
+
+  <div class="setup-section">
+    <h2>Game Type</h2>
+    <div class="game-type-buttons">
+      @for (gameType of gameTypes; track gameType) {
+        <button
+          [class.active]="selectedGameType() === gameType"
+          (click)="selectedGameType.set(gameType)">
+          {{ gameType }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <div class="setup-section">
+    <h2>Input Mode</h2>
+    <div class="input-mode-buttons">
+      @for (mode of inputModes; track mode.value) {
+        <button
+          [class.active]="selectedInputMode() === mode.value"
+          (click)="selectedInputMode.set(mode.value)">
+          {{ mode.label }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <div class="setup-section">
+    <h2>Players</h2>
+    <div class="player-list">
+      @for (player of playerNames(); track $index) {
+        @if (player.trim()) {
+          <div class="player-item">
+            <span>{{ player }}</span>
+            <button class="remove-btn" (click)="removePlayer($index)">Remove</button>
+          </div>
+        }
+      }
+    </div>
+
+    <div class="add-player">
+      <input
+        type="text"
+        placeholder="Enter player name"
+        [ngModel]="newPlayerName()"
+        (ngModelChange)="newPlayerName.set($event)"
+        (keyup.enter)="addPlayer()" />
+      <button (click)="addPlayer()">Add Player</button>
+    </div>
+  </div>
+
+  <button
+    class="start-game-btn"
+    [disabled]="!canStartGame()"
+    (click)="startGame()">
+    Start Game
+  </button>
+</div>

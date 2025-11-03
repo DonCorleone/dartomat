@@ -1,0 +1,150 @@
+.scoreboard {
+  background: #f5f5f5;
+  padding: 0.5rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  flex-shrink: 0;
+  max-height: 180px;
+  display: flex;
+  flex-direction: column;
+}
+
+.scoreboard h2 {
+  margin: 0 0 0.4rem 0;
+  color: #333;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.players {
+  display: grid;
+  gap: 0.4rem;
+  max-height: 140px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.players.multi-column {
+  overflow-y: hidden;
+  gap: 0.3rem;
+}
+
+.player-card {
+  background: white;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.players.multi-column .player-card {
+  padding: 0.4rem 0.5rem;
+}
+
+.player-card.current-player {
+  border-color: #4CAF50;
+  background: #f1f8f4;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
+}
+
+.player-card.winner {
+  border-color: #FFC107;
+  background: #fffbf0;
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+}
+
+.player-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.player-info h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.players.multi-column .player-info h3 {
+  font-size: 0.9rem;
+}
+
+.current-badge {
+  display: inline-block;
+  background: #4CAF50;
+  color: white;
+  padding: 0.15rem 0.5rem;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.players.multi-column .current-badge {
+  font-size: 0.7rem;
+  padding: 0.1rem 0.4rem;
+}
+
+.winner-badge {
+  display: inline-block;
+  background: #FFC107;
+  color: #333;
+  padding: 0.15rem 0.5rem;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.players.multi-column .winner-badge {
+  font-size: 0.7rem;
+  padding: 0.1rem 0.4rem;
+}
+
+.player-score {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.score-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2196F3;
+  line-height: 1;
+}
+
+.players.multi-column .score-value {
+  font-size: 1.3rem;
+}
+
+.score-label {
+  font-size: 0.7rem;
+  color: #666;
+  text-transform: uppercase;
+}
+
+.players.multi-column .score-label {
+  font-size: 0.65rem;
+}
+
+.game-over {
+  margin-top: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 8px;
+  text-align: center;
+  color: white;
+}
+
+.game-over h2 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.game-over p {
+  margin: 0;
+  font-size: 1.2rem;
+}
