@@ -5,11 +5,11 @@
     @for (player of gameState.allPlayers(); track player.id) {
       <div
         class="player-card"
-        [class.current-player]="gameState.currentPlayer()?.id === player.id"
+        [class.current-player]="gameState.currentPlayer().id === player.id"
         [class.winner]="player.hasWon">
         <div class="player-info">
           <h3>{{ player.name }}</h3>
-          @if (gameState.currentPlayer()?.id === player.id) {
+          @if (gameState.currentPlayer().id === player.id) {
             <span class="current-badge">Current Turn</span>
           }
           @if (player.hasWon) {
