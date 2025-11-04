@@ -9,7 +9,7 @@
 
 h1 {
   text-align: center;
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 1rem;
   font-size: 1.8rem;
 }
@@ -22,7 +22,7 @@ h1 {
 h2 {
   font-size: 1rem;
   margin-bottom: 0.5rem;
-  color: #555;
+  color: var(--text-secondary);
 }
 
 .game-type-buttons,
@@ -35,24 +35,28 @@ h2 {
 .game-type-buttons button,
 .input-mode-buttons button {
   padding: 0.5rem 1rem;
-  border: 2px solid #ddd;
-  background: white;
+  border: 2px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.9rem;
+  font-weight: 500;
   transition: all 0.2s;
 }
 
 .game-type-buttons button:hover,
 .input-mode-buttons button:hover {
-  border-color: #4CAF50;
+  border-color: var(--btn-primary-bg);
+  background: var(--bg-tertiary);
+  transform: translateY(-2px);
 }
 
 .game-type-buttons button.active,
 .input-mode-buttons button.active {
-  background: #4CAF50;
-  color: white;
-  border-color: #4CAF50;
+  background: var(--btn-primary-bg);
+  color: var(--bg-primary);
+  border-color: var(--btn-primary-bg);
 }
 
 .player-list {
@@ -66,7 +70,7 @@ h2 {
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
-  background: #f5f5f5;
+  background: var(--bg-secondary);
   border-radius: 4px;
   margin-bottom: 0.4rem;
 }
@@ -78,8 +82,8 @@ h2 {
 
 .remove-btn {
   padding: 0.4rem 0.8rem;
-  background: #f44336;
-  color: white;
+  background: var(--btn-danger-bg);
+  color: var(--bg-primary);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -87,7 +91,7 @@ h2 {
 }
 
 .remove-btn:hover {
-  background: #d32f2f;
+  background: var(--btn-danger-hover);
 }
 
 .add-player {
@@ -98,20 +102,27 @@ h2 {
 .add-player input {
   flex: 1;
   padding: 0.6rem;
-  border: 2px solid #ddd;
+  border: 2px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
   border-radius: 4px;
   font-size: 0.9rem;
 }
 
 .add-player input:focus {
   outline: none;
-  border-color: #4CAF50;
+  border-color: var(--btn-primary-bg);
+  background: var(--bg-primary);
+}
+
+.add-player input::placeholder {
+  color: var(--text-tertiary);
 }
 
 .add-player button {
   padding: 0.6rem 1.2rem;
-  background: #4CAF50;
-  color: white;
+  background: var(--btn-primary-bg);
+  color: var(--bg-primary);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -119,14 +130,14 @@ h2 {
 }
 
 .add-player button:hover {
-  background: #45a049;
+  background: var(--btn-primary-hover);
 }
 
 .start-game-btn {
   width: 100%;
   padding: 0.8rem;
-  background: #2196F3;
-  color: white;
+  background: var(--btn-secondary-bg);
+  color: var(--bg-primary);
   border: none;
   border-radius: 4px;
   font-size: 1.1rem;
@@ -137,10 +148,10 @@ h2 {
 }
 
 .start-game-btn:hover:not(:disabled) {
-  background: #1976D2;
+  background: var(--btn-secondary-hover);
 }
 
 .start-game-btn:disabled {
-  background: #ccc;
+  background: var(--border-color);
   cursor: not-allowed;
 }

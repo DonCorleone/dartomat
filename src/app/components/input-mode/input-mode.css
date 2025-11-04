@@ -12,7 +12,7 @@
 }
 
 .current-player-info {
-  background: #e3f2fd;
+  background: var(--bg-accent);
   padding: 0.4rem;
   border-radius: 4px;
   text-align: center;
@@ -23,23 +23,23 @@
 .current-player-info h3 {
   margin: 0 0 0.2rem 0;
   font-size: 1rem;
-  color: #1976D2;
+  color: var(--btn-secondary-hover);
 }
 
 .remaining-score {
   margin: 0;
   font-size: 0.8rem;
-  color: #555;
+  color: var(--text-secondary);
 }
 
 .remaining-score strong {
   font-size: 1rem;
-  color: #2196F3;
+  color: var(--btn-secondary-bg);
 }
 
 .current-round {
-  background: white;
-  border: 2px solid #ddd;
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
   border-radius: 4px;
   padding: 0.4rem;
   margin-bottom: 0.3rem;
@@ -50,7 +50,7 @@
 
 .current-round h4 {
   margin: 0 0 0.3rem 0;
-  color: #333;
+  color: var(--text-primary);
   font-size: 0.85rem;
 }
 
@@ -63,31 +63,31 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.3rem 0.4rem;
-  background: #f5f5f5;
+  background: var(--bg-secondary);
   border-radius: 4px;
   margin-bottom: 0.25rem;
 }
 
 .throw-label {
-  color: #666;
+  color: var(--text-secondary);
   font-size: 0.8rem;
 }
 
 .throw-value {
   font-weight: bold;
   font-size: 0.9rem;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .throw-score {
-  color: #2196F3;
+  color: var(--btn-secondary-bg);
   font-weight: 500;
   font-size: 0.8rem;
 }
 
 .no-throws {
   text-align: center;
-  color: #999;
+  color: var(--text-tertiary);
   font-style: italic;
   margin: 0.3rem 0;
   font-size: 0.8rem;
@@ -96,15 +96,15 @@
 .round-total {
   text-align: center;
   padding: 0.4rem;
-  background: #e8f5e9;
+  background: var(--bg-success);
   border-radius: 4px;
-  color: #2e7d32;
+  color: var(--color-green);
   font-size: 0.9rem;
 }
 
 .error-message {
-  background: #ffebee;
-  color: #c62828;
+  background: var(--error-bg);
+  color: var(--error-text);
   padding: 0.4rem;
   border-radius: 4px;
   margin-bottom: 0.3rem;
@@ -114,8 +114,8 @@
 }
 
 .dart-input {
-  background: white;
-  border: 2px solid #ddd;
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
   border-radius: 4px;
   padding: 0.5rem;
   margin-bottom: 0.3rem;
@@ -131,8 +131,8 @@
 
 .multiplier-selector button {
   padding: 0.4rem;
-  background: #f5f5f5;
-  border: 2px solid #ddd;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
   border-radius: 4px;
   font-weight: 500;
   cursor: pointer;
@@ -141,13 +141,13 @@
 }
 
 .multiplier-selector button:hover {
-  border-color: #4CAF50;
+  border-color: var(--btn-primary-bg);
 }
 
 .multiplier-selector button.active {
-  background: #4CAF50;
-  color: white;
-  border-color: #4CAF50;
+  background: var(--btn-primary-bg);
+  color: var(--bg-primary);
+  border-color: var(--btn-primary-bg);
 }
 
 .number-pad {
@@ -159,8 +159,8 @@
 
 .number-pad button {
   padding: 0.5rem 0.3rem;
-  background: #f5f5f5;
-  border: 2px solid #ddd;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
   border-radius: 4px;
   font-weight: bold;
   cursor: pointer;
@@ -169,15 +169,15 @@
 }
 
 .number-pad button:hover {
-  background: #2196F3;
-  color: white;
-  border-color: #2196F3;
+  background: var(--btn-secondary-bg);
+  color: var(--bg-primary);
+  border-color: var(--btn-secondary-bg);
 }
 
 .bull-button {
   grid-column: span 5;
-  background: #FFC107 !important;
-  border-color: #FFC107 !important;
+  background: var(--color-yellow) !important;
+  border-color: var(--color-yellow) !important;
 }
 
 .bull-button:hover {
@@ -188,22 +188,22 @@
 .selected-dart {
   text-align: center;
   padding: 0.4rem;
-  background: #e3f2fd;
+  background: var(--bg-accent);
   border-radius: 4px;
   margin-bottom: 0.3rem;
   font-size: 0.85rem;
 }
 
 .selected-dart strong {
-  color: #1976D2;
+  color: var(--btn-secondary-hover);
   font-size: 1rem;
 }
 
 .add-throw-btn {
   width: 100%;
   padding: 0.6rem;
-  background: #4CAF50;
-  color: white;
+  background: var(--btn-primary-bg);
+  color: var(--bg-primary);
   border: none;
   border-radius: 4px;
   font-size: 0.9rem;
@@ -213,7 +213,7 @@
 }
 
 .add-throw-btn:hover {
-  background: #45a049;
+  background: var(--btn-primary-hover);
 }
 
 .round-actions {
@@ -226,8 +226,8 @@
 
 .clear-btn {
   padding: 0.6rem;
-  background: #f44336;
-  color: white;
+  background: var(--btn-danger-bg);
+  color: var(--bg-primary);
   border: none;
   border-radius: 4px;
   font-size: 0.85rem;
@@ -237,13 +237,13 @@
 }
 
 .clear-btn:hover {
-  background: #d32f2f;
+  background: var(--btn-danger-hover);
 }
 
 .submit-btn {
   padding: 0.6rem;
-  background: #2196F3;
-  color: white;
+  background: var(--btn-secondary-bg);
+  color: var(--bg-primary);
   border: none;
   border-radius: 4px;
   font-size: 0.85rem;
@@ -253,10 +253,10 @@
 }
 
 .submit-btn:hover:not(:disabled) {
-  background: #1976D2;
+  background: var(--btn-secondary-hover);
 }
 
 .submit-btn:disabled {
-  background: #ccc;
+  background: var(--border-color);
   cursor: not-allowed;
 }

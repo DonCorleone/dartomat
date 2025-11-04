@@ -13,21 +13,45 @@
   align-items: center;
   padding-bottom: 0.4rem;
   margin-bottom: 0.4rem;
-  border-bottom: 2px solid #ddd;
+  border-bottom: 2px solid var(--border-color);
   flex-shrink: 0;
   height: 40px;
 }
 
 .game-header h1 {
   margin: 0;
-  color: #333;
+  color: var(--text-primary);
   font-size: 1.3rem;
+}
+
+.header-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.theme-toggle-btn {
+  padding: 0.5rem 0.75rem;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--bg-primary);
+  transform: scale(1.1);
 }
 
 .reset-btn {
   padding: 0.5rem 1rem;
-  background: #f44336;
-  color: white;
+  background: var(--btn-danger-bg);
+  color: var(--bg-primary);
   border: none;
   border-radius: 4px;
   font-size: 0.9rem;
@@ -37,7 +61,7 @@
 }
 
 .reset-btn:hover {
-  background: #d32f2f;
+  background: var(--btn-danger-hover);
 }
 
 .game-finished {
@@ -51,8 +75,8 @@
 
 .new-game-btn {
   padding: 1rem 2rem;
-  background: #4CAF50;
-  color: white;
+  background: var(--btn-primary-bg);
+  color: var(--bg-primary);
   border: none;
   border-radius: 8px;
   font-size: 1.1rem;
@@ -63,7 +87,7 @@
 }
 
 .new-game-btn:hover {
-  background: #45a049;
+  background: var(--btn-primary-hover);
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
 }

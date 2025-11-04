@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameStateService } from '../../services/game-state';
+import { ThemeService } from '../../services/theme';
 import { GameConfig } from '../../models/game-config.model';
 import { GameSetup } from '../game-setup/game-setup';
 import { Scoreboard } from '../scoreboard/scoreboard';
@@ -23,6 +24,7 @@ import { TouchMode } from '../touch-mode/touch-mode';
 })
 export class GameContainer {
   protected readonly gameState = inject(GameStateService);
+  protected readonly themeService = inject(ThemeService);
 
   /**
    * Handle game start from setup component
@@ -36,5 +38,12 @@ export class GameContainer {
    */
   protected resetGame(): void {
     this.gameState.resetGame();
+  }
+
+  /**
+   * Toggle theme
+   */
+  protected toggleTheme(): void {
+    this.themeService.toggleTheme();
   }
 }

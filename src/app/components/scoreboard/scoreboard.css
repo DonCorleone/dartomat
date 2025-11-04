@@ -1,5 +1,5 @@
 .scoreboard {
-  background: #f5f5f5;
+  background: var(--bg-secondary);
   padding: 0.5rem;
   border-radius: 6px;
   flex-shrink: 0;
@@ -17,7 +17,7 @@
 
 .scoreboard h2 {
   margin: 0 0 0.4rem 0;
-  color: #333;
+  color: var(--text-primary);
   text-align: center;
   font-size: 0.9rem;
 }
@@ -36,8 +36,8 @@
 }
 
 .player-card {
-  background: white;
-  border: 2px solid #ddd;
+  background: var(--bg-primary);
+  border: 2px solid var(--border-color);
   border-radius: 6px;
   padding: 0.5rem 0.75rem;
   display: flex;
@@ -51,13 +51,13 @@
 }
 
 .player-card.current-player {
-  border-color: #4CAF50;
+  border-color: var(--btn-primary-bg);
   background: #f1f8f4;
   box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
 }
 
 .player-card.winner {
-  border-color: #FFC107;
+  border-color: var(--color-yellow);
   background: #fffbf0;
   box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
 }
@@ -71,7 +71,7 @@
 .player-info h3 {
   margin: 0;
   font-size: 1rem;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .players.multi-column .player-info h3 {
@@ -80,8 +80,8 @@
 
 .current-badge {
   display: inline-block;
-  background: #4CAF50;
-  color: white;
+  background: var(--btn-primary-bg);
+  color: var(--bg-primary);
   padding: 0.15rem 0.5rem;
   border-radius: 10px;
   font-size: 0.75rem;
@@ -95,8 +95,8 @@
 
 .winner-badge {
   display: inline-block;
-  background: #FFC107;
-  color: #333;
+  background: var(--color-yellow);
+  color: var(--text-primary);
   padding: 0.15rem 0.5rem;
   border-radius: 10px;
   font-size: 0.75rem;
@@ -117,7 +117,7 @@
 .score-value {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #2196F3;
+  color: var(--btn-secondary-bg);
   line-height: 1;
 }
 
@@ -127,7 +127,7 @@
 
 .score-label {
   font-size: 0.7rem;
-  color: #666;
+  color: var(--text-secondary);
   text-transform: uppercase;
 }
 
@@ -141,13 +141,13 @@
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 8px;
   text-align: center;
-  color: white;
+  color: var(--bg-primary);
 }
 
 .game-over h2 {
   margin: 0 0 0.5rem 0;
   font-size: 1.5rem;
-  color: white;
+  color: var(--bg-primary);
 }
 
 .game-over p {

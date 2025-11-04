@@ -9,13 +9,13 @@
 
 .calculating-mode h2 {
   text-align: center;
-  color: #333;
+  color: var(--text-primary);
   margin-bottom: 0.25rem;
   font-size: 0.95rem;
 }
 
 .current-player-info {
-  background: #e3f2fd;
+  background: var(--bg-accent);
   padding: 0.4rem;
   border-radius: 4px;
   text-align: center;
@@ -26,25 +26,25 @@
 .current-player-info h3 {
   margin: 0 0 0.2rem 0;
   font-size: 1.1rem;
-  color: #1976D2;
+  color: var(--btn-secondary-hover);
 }
 
 .remaining-score {
   margin: 0;
   font-size: 0.85rem;
-  color: #555;
+  color: var(--text-secondary);
 }
 
 .remaining-score strong {
   font-size: 1.2rem;
-  color: #2196F3;
+  color: var(--btn-secondary-bg);
 }
 
 .score-input-section {
-  background: white;
+  background: var(--bg-primary);
   padding: 0.5rem;
   border-radius: 4px;
-  border: 2px solid #ddd;
+  border: 2px solid var(--border-color);
   margin-bottom: 0.4rem;
   flex-shrink: 0;
 }
@@ -53,7 +53,7 @@
   display: block;
   margin-bottom: 0.4rem;
   font-weight: 500;
-  color: #333;
+  color: var(--text-primary);
   font-size: 0.85rem;
 }
 
@@ -62,11 +62,11 @@
   padding: 0.75rem;
   font-size: 2rem;
   font-weight: bold;
-  border: 2px solid #ddd;
+  border: 2px solid var(--border-color);
   border-radius: 4px;
   text-align: center;
   background: #f9f9f9;
-  color: #333;
+  color: var(--text-primary);
   min-height: 3rem;
   display: flex;
   align-items: center;
@@ -75,8 +75,8 @@
 }
 
 .error-message {
-  background: #ffebee;
-  color: #c62828;
+  background: var(--error-bg);
+  color: var(--error-text);
   padding: 0.5rem;
   border-radius: 4px;
   margin-bottom: 0.75rem;
@@ -94,8 +94,8 @@
 
 .numpad-btn {
   padding: 0.75rem;
-  background: #f5f5f5;
-  border: 2px solid #ddd;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
   border-radius: 4px;
   font-size: 1.3rem;
   font-weight: bold;
@@ -105,9 +105,9 @@
 }
 
 .numpad-btn:hover {
-  background: #2196F3;
-  color: white;
-  border-color: #2196F3;
+  background: var(--btn-secondary-bg);
+  color: var(--bg-primary);
+  border-color: var(--btn-secondary-bg);
   transform: scale(1.05);
 }
 
@@ -116,32 +116,32 @@
 }
 
 .numpad-btn.clear-btn {
-  background: #ff9800;
-  color: white;
-  border-color: #ff9800;
+  background: var(--btn-warning-bg);
+  color: var(--bg-primary);
+  border-color: var(--btn-warning-bg);
 }
 
 .numpad-btn.clear-btn:hover {
-  background: #f57c00;
-  border-color: #f57c00;
+  background: var(--btn-warning-hover);
+  border-color: var(--btn-warning-hover);
 }
 
 .numpad-btn.backspace-btn {
-  background: #ff5722;
-  color: white;
-  border-color: #ff5722;
+  background: var(--btn-accent-bg);
+  color: var(--bg-primary);
+  border-color: var(--btn-accent-bg);
 }
 
 .numpad-btn.backspace-btn:hover {
-  background: #e64a19;
-  border-color: #e64a19;
+  background: var(--btn-accent-hover);
+  border-color: var(--btn-accent-hover);
 }
 
 .submit-btn {
   grid-column: 1 / -1;
   padding: 0.75rem;
-  background: #4CAF50;
-  color: white;
+  background: var(--btn-primary-bg);
+  color: var(--bg-primary);
   border: none;
   border-radius: 4px;
   font-size: 1.1rem;
@@ -152,7 +152,7 @@
 }
 
 .submit-btn:hover {
-  background: #45a049;
+  background: var(--btn-primary-hover);
   transform: scale(1.02);
 }
 
