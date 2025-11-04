@@ -65,7 +65,7 @@
   border: 2px solid var(--border-color);
   border-radius: 4px;
   text-align: center;
-  background: #f9f9f9;
+  background: var(--bg-tertiary);
   color: var(--text-primary);
   min-height: 3rem;
   display: flex;
@@ -94,8 +94,9 @@
 
 .numpad-btn {
   padding: 0.75rem;
-  background: var(--bg-secondary);
-  border: 2px solid var(--border-color);
+  background: var(--btn-secondary-bg);
+  color: var(--bg-primary);
+  border: 2px solid var(--btn-secondary-bg);
   border-radius: 4px;
   font-size: 1.3rem;
   font-weight: bold;
@@ -105,9 +106,8 @@
 }
 
 .numpad-btn:hover {
-  background: var(--btn-secondary-bg);
-  color: var(--bg-primary);
-  border-color: var(--btn-secondary-bg);
+  background: var(--btn-secondary-hover);
+  border-color: var(--btn-secondary-hover);
   transform: scale(1.05);
 }
 
@@ -116,25 +116,25 @@
 }
 
 .numpad-btn.clear-btn {
+  background: var(--btn-danger-bg);
+  color: var(--bg-primary);
+  border-color: var(--btn-danger-bg);
+}
+
+.numpad-btn.clear-btn:hover {
+  background: var(--btn-danger-hover);
+  border-color: var(--btn-danger-hover);
+}
+
+.numpad-btn.backspace-btn {
   background: var(--btn-warning-bg);
   color: var(--bg-primary);
   border-color: var(--btn-warning-bg);
 }
 
-.numpad-btn.clear-btn:hover {
+.numpad-btn.backspace-btn:hover {
   background: var(--btn-warning-hover);
   border-color: var(--btn-warning-hover);
-}
-
-.numpad-btn.backspace-btn {
-  background: var(--btn-accent-bg);
-  color: var(--bg-primary);
-  border-color: var(--btn-accent-bg);
-}
-
-.numpad-btn.backspace-btn:hover {
-  background: var(--btn-accent-hover);
-  border-color: var(--btn-accent-hover);
 }
 
 .submit-btn {

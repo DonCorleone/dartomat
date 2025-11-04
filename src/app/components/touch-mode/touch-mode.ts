@@ -2,7 +2,6 @@ import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameStateService } from '../../services/game-state';
 import { ScoreService } from '../../services/score';
-import { ThemeService } from '../../services/theme';
 import { Scoreboard } from '../scoreboard/scoreboard';
 
 interface DartHit {
@@ -22,7 +21,6 @@ interface DartHit {
 export class TouchMode {
   protected readonly gameState = inject(GameStateService);
   protected readonly scoreService = inject(ScoreService);
-  protected readonly themeService = inject(ThemeService);
 
   // Expose Math for template
   protected readonly Math = Math;
@@ -159,12 +157,5 @@ export class TouchMode {
     this.gameState.resetGame();
     this.hits.set([]);
     this.errorMessage.set('');
-  }
-
-  /**
-   * Toggle theme
-   */
-  protected toggleTheme(): void {
-    this.themeService.toggleTheme();
   }
 }

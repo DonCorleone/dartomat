@@ -3,16 +3,7 @@
   <div class="left-sidebar">
     <div class="header-compact">
       <h2>Dartomat</h2>
-      <div class="header-actions-compact">
-        <button class="theme-toggle-btn-compact" (click)="toggleTheme()" [attr.aria-label]="themeService.appliedTheme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'">
-          @if (themeService.appliedTheme() === 'dark') {
-            ☀️
-          } @else {
-            🌙
-          }
-        </button>
-        <button class="reset-btn-compact" (click)="resetGame()">New Game</button>
-      </div>
+      <button class="reset-btn-compact" (click)="resetGame()">New Game</button>
     </div>
 
     <app-scoreboard></app-scoreboard>

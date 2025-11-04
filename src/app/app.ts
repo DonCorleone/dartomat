@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { GameContainer } from './components/game-container/game-container';
+import { ThemeService } from './services/theme';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,7 @@ import { GameContainer } from './components/game-container/game-container';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {}
+export class App {
+  // Inject ThemeService to ensure it initializes and detects system theme
+  private readonly themeService = inject(ThemeService);
+}
