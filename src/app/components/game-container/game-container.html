@@ -4,18 +4,16 @@
     <app-game-setup (gameStart)="onGameStart($event)"></app-game-setup>
   } @else {
     <!-- Show game in progress -->
-    <div class="game-header">
-      <h1>Dartomat</h1>
-      <button class="reset-btn" (click)="resetGame()">New Game</button>
-    </div>
-
     @if (gameState.config()?.inputMode === 'touch' && !gameState.isGameFinished()) {
-      <!-- Touch mode: Landscape layout with scoreboard on side -->
-      <div class="touch-mode-layout">
-        <app-scoreboard></app-scoreboard>
-        <app-touch-mode></app-touch-mode>
-      </div>
+      <!-- Touch mode: Landscape layout with everything on left, dartboard on right -->
+      <app-touch-mode></app-touch-mode>
     } @else {
+      <!-- Show header for non-touch modes -->
+      <div class="game-header">
+        <h1>Dartomat</h1>
+        <button class="reset-btn" (click)="resetGame()">New Game</button>
+      </div>
+
       <!-- Portrait layout for other modes -->
       <app-scoreboard></app-scoreboard>
 

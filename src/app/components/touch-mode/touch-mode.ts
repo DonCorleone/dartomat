@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameStateService } from '../../services/game-state';
 import { ScoreService } from '../../services/score';
+import { Scoreboard } from '../scoreboard/scoreboard';
 
 interface DartHit {
   x: number;
@@ -13,7 +14,7 @@ interface DartHit {
 
 @Component({
   selector: 'app-touch-mode',
-  imports: [CommonModule],
+  imports: [CommonModule, Scoreboard],
   templateUrl: './touch-mode.html',
   styleUrl: './touch-mode.css',
 })
@@ -145,6 +146,15 @@ export class TouchMode {
    */
   protected clearRound(): void {
     this.gameState.clearCurrentRound();
+    this.hits.set([]);
+    this.errorMessage.set('');
+  }
+
+  /**
+   * Reset the game
+   */
+  protected resetGame(): void {
+    this.gameState.resetGame();
     this.hits.set([]);
     this.errorMessage.set('');
   }

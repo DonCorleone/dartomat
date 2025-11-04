@@ -1,15 +1,57 @@
 <div class="touch-mode">
-  @if (gameState.currentPlayer(); as player) {
-    <div class="current-player-info">
-      <h3>{{ player.name }}'s Turn</h3>
-      <p class="remaining-score">Remaining: <strong>{{ player.currentScore }}</strong> points</p>
+  <!-- Left sidebar with header, scoreboard, and controls -->
+  <div class="left-sidebar">
+    <div class="header-compact">
+      <h2>Dartomat</h2>
+      <button class="reset-btn-compact" (click)="resetGame()">New Game</button>
     </div>
-  }
 
-  @if (errorMessage()) {
-    <div class="error-message">{{ errorMessage() }}</div>
-  }
+    <app-scoreboard></app-scoreboard>
 
+    @if (gameState.currentPlayer(); as player) {
+      <div class="current-player-info">
+        <h3>{{ player.name }}'s Turn</h3>
+        <p class="remaining-score">Remaining: <strong>{{ player.currentScore }}</strong> points</p>
+      </div>
+    }
+
+    @if (errorMessage()) {
+      <div class="error-message">{{ errorMessage() }}</div>
+    }
+
+    <div class="current-round">
+      <h4>Current Round</h4>
+      @if (gameState.activeRound().throws.length > 0) {
+        <div class="throws-display">
+          @for (dartThrow of gameState.activeRound().throws; track $index) {
+            <div class="throw-item">
+              <span class="throw-label">Dart {{ $index + 1 }}:</span>
+              <span class="throw-value">
+                @if (dartThrow.multiplier === 1) { {{ dartThrow.value }} }
+                @if (dartThrow.multiplier === 2) { D{{ dartThrow.value }} }
+                @if (dartThrow.multiplier === 3) { T{{ dartThrow.value }} }
+              </span>
+              <span class="throw-score">{{ dartThrow.score }} pts</span>
+            </div>
+          }
+        </div>
+        <div class="round-total">
+          <strong>Round Total:</strong> {{ gameState.activeRound().totalScore }} points
+        </div>
+      } @else {
+        <p class="no-throws">Tap the dartboard to add throws</p>
+      }
+    </div>
+
+    <div class="round-actions">
+      <button class="clear-btn" (click)="clearRound()">Clear</button>
+      <button class="submit-btn" (click)="submitRound()" [disabled]="gameState.activeRound().throws.length === 0">
+        Submit Round
+      </button>
+    </div>
+  </div>
+
+  <!-- Right side with dartboard -->
   <div class="dartboard-container">
     <svg
       [attr.width]="dartboardSize"
@@ -119,36 +161,5 @@
         </g>
       }
     </svg>
-  </div>
-
-  <div class="current-round">
-    <h4>Current Round</h4>
-    @if (gameState.activeRound().throws.length > 0) {
-      <div class="throws-display">
-        @for (dartThrow of gameState.activeRound().throws; track $index) {
-          <div class="throw-item">
-            <span class="throw-label">Dart {{ $index + 1 }}:</span>
-            <span class="throw-value">
-              @if (dartThrow.multiplier === 1) { {{ dartThrow.value }} }
-              @if (dartThrow.multiplier === 2) { D{{ dartThrow.value }} }
-              @if (dartThrow.multiplier === 3) { T{{ dartThrow.value }} }
-            </span>
-            <span class="throw-score">{{ dartThrow.score }} pts</span>
-          </div>
-        }
-      </div>
-      <div class="round-total">
-        <strong>Round Total:</strong> {{ gameState.activeRound().totalScore }} points
-      </div>
-    } @else {
-      <p class="no-throws">Tap the dartboard to add throws</p>
-    }
-  </div>
-
-  <div class="round-actions">
-    <button class="clear-btn" (click)="clearRound()">Clear</button>
-    <button class="submit-btn" (click)="submitRound()" [disabled]="gameState.activeRound().throws.length === 0">
-      Submit Round
-    </button>
   </div>
 </div>
