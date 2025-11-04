@@ -1,12 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { GameStateService } from '../../services/game-state';
 import { ScoreService } from '../../services/score';
 
 @Component({
   selector: 'app-input-mode',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule],
   templateUrl: './input-mode.html',
   styleUrl: './input-mode.css',
 })
@@ -14,60 +13,44 @@ export class InputMode {
   protected readonly gameState = inject(GameStateService);
   protected readonly scoreService = inject(ScoreService);
 
-  protected readonly dartValue = signal<number | null>(null);
-  protected readonly dartMultiplier = signal<1 | 2 | 3>(1);
   protected readonly errorMessage = signal<string>('');
 
+  // Dart values in dartboard order (20 at top, clockwise)
+  protected readonly dartValues = [20, 1, 18, 4, 13, 6, 10, 15, 2, 17, 3, 19, 7, 16, 8, 11, 14, 9, 12, 5];
+
   /**
-   * Add a throw to the current round
+   * Add a throw with specific value and multiplier
    */
-  protected addThrow(): void {
-    const value = this.dartValue();
-    const multiplier = this.dartMultiplier();
-
-    if (value === null) {
-      this.errorMessage.set('Please enter a dart value');
-      return;
-    }
-
-    if (value < 1 || value > 20) {
-      if (value !== 25) {
-        this.errorMessage.set('Valid values: 1-20 or 25 (bull)');
-        return;
-      }
-    }
-
+  protected addDartThrow(value: number, multiplier: 1 | 2 | 3): void {
     const dartThrow = this.scoreService.createThrow(value, multiplier);
-
-    if (!this.scoreService.validateThrow(dartThrow)) {
-      this.errorMessage.set('Invalid throw');
-      return;
-    }
 
     const success = this.gameState.addThrow(dartThrow);
 
     if (!success) {
       this.errorMessage.set('Maximum 3 darts per round');
-      return;
+      setTimeout(() => this.errorMessage.set(''), 2000);
+    } else {
+      this.errorMessage.set('');
     }
-
-    // Reset inputs
-    this.dartValue.set(null);
-    this.dartMultiplier.set(1);
-    this.errorMessage.set('');
   }
 
   /**
-   * Submit the current round
+   * Undo the last throw
+   */
+  protected undoLastThrow(): void {
+    const round = this.gameState.activeRound();
+    if (round.throws.length > 0) {
+      const updatedThrows = round.throws.slice(0, -1);
+      this.gameState.clearCurrentRound();
+      updatedThrows.forEach(dartThrow => this.gameState.addThrow(dartThrow));
+      this.errorMessage.set('');
+    }
+  }
+
+  /**
+   * Submit the current round (allows 0 throws)
    */
   protected submitRound(): void {
-    const round = this.gameState.activeRound();
-
-    if (round.throws.length === 0) {
-      this.errorMessage.set('Add at least one throw before submitting');
-      return;
-    }
-
     this.gameState.submitRound();
     this.errorMessage.set('');
   }
@@ -77,22 +60,6 @@ export class InputMode {
    */
   protected clearRound(): void {
     this.gameState.clearCurrentRound();
-    this.dartValue.set(null);
-    this.dartMultiplier.set(1);
     this.errorMessage.set('');
-  }
-
-  /**
-   * Quick number pad for dart values
-   */
-  protected setDartValue(value: number): void {
-    this.dartValue.set(value);
-  }
-
-  /**
-   * Set multiplier
-   */
-  protected setMultiplier(multiplier: 1 | 2 | 3): void {
-    this.dartMultiplier.set(multiplier);
   }
 }

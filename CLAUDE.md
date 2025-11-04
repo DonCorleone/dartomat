@@ -17,7 +17,17 @@ In this mode, the current player calculates their round points and enters the to
 - **Smart validation:** Prevents values over 180 (max possible darts score)
 
 ### Input Mode
-in this mode, the current player writes the points of every projectile and the app calculates the round's point
+In this mode, the current player enters each dart throw by clicking buttons, and the app calculates the round's total points.
+
+**One-Click Interface:** Completely redesigned for optimal usability:
+- **Three organized sections:** Singles (blue), Doubles (green), Triples (orange)
+- **All dart values in dartboard order:** 20, 1, 18, 4, 13, 6, 10, 15, 2, 17, 3, 19, 7, 16, 8, 11, 14, 9, 12, 5
+- **Direct input:** Single tap adds a throw (no separate multiplier selection needed)
+- **0 button:** For missed darts (0 points)
+- **Bull buttons:** 25 (singles, yellow) and D25 (double bull, red)
+- **Undo functionality:** Remove last throw with ↶ Undo button
+- **Allows empty rounds:** Can submit with 0 throws (for 0 points total)
+- **Large, colorful buttons:** Easy to tap with clear visual distinction between types
 
 ### Touch Mode
 In this mode, the current player touches on a touch device on a visual dartboard where they hit the target. The app calculates the score based on the touched position.
@@ -99,9 +109,18 @@ The codebase uses Angular signals (see `App` component using `signal()`). Prefer
 ### Touch/iPad Optimization
 The app is designed primarily for iPad and touch devices:
 - **No system keyboards:** All input modes use custom on-screen controls (numpad, dartboard, etc.)
-- **Large touch targets:** Buttons and interactive elements sized for finger tapping (minimum 50px)
+- **Large touch targets:** Buttons and interactive elements sized for finger tapping (minimum 44-50px)
 - **Responsive layouts:** Components adapt to available screen space
 - **Visual feedback:** Hover states and animations confirm user interactions
+
+### Theme System
+Automatic dark/light mode based on system preferences:
+- **Color scheme:** Uses Atom One Dark color palette for both themes
+  - Light mode: Vibrant Atom One Dark colors on light backgrounds (#fafafa)
+  - Dark mode: Atom One Dark colors on dark backgrounds (#282c34)
+- **Consistent buttons:** Green (primary/doubles), Blue (secondary/singles), Red (danger), Orange (warning/triples), Yellow (accent/bull)
+- **CSS custom properties:** All colors defined as CSS variables in `:root` and `[data-theme="dark"]`
+- **Smooth transitions:** Theme changes animate color transitions (0.3s ease)
 
 ## Component Structure
 
@@ -125,7 +144,14 @@ Self-contained component for touch input with built-in two-column layout:
 - Calculates scores based on dartboard geometry (doubles, triples, bull)
 
 #### Input Mode (`input-mode`)
-Manual score entry mode where players input individual dart values.
+One-click dart entry interface organized by multipliers:
+- Three sections with labeled buttons: Singles, Doubles, Triples
+- 7-column grid layout for optimal iPad display
+- Color-coded buttons: Blue (singles), Green (doubles), Orange (triples)
+- Special buttons: 0 (gray), 25 (yellow), D25 (red)
+- Undo button to remove last throw
+- Shows current round state with throw count (e.g., "Current Round (2/3)")
+- Allows submitting rounds with any number of throws (0-3)
 
 #### Calculating Mode (`calculating-mode`)
 Calculator-style interface optimized for touch devices:
@@ -147,3 +173,10 @@ Central state management using Angular signals:
 Score validation and calculation utilities:
 - Creates and validates dart throws
 - Ensures score integrity (e.g., valid dart values, multipliers)
+
+#### ThemeService (`theme`)
+Automatic theme detection and management:
+- **System preference detection:** Automatically applies light/dark theme based on device settings
+- **Live updates:** Listens for system theme changes and updates immediately
+- **Initialized at app startup:** Injected in root `App` component to ensure theme applies on load
+- **No manual toggle:** Theme follows system preference only (prefers-color-scheme media query)

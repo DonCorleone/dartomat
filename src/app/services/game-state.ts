@@ -89,12 +89,13 @@ export class GameStateService {
 
   /**
    * Submit the current round and move to next player
+   * Allows submitting rounds with 0 throws (for 0 points)
    */
   submitRound(): void {
     const player = this.currentPlayer();
     const round = this.currentRound();
 
-    if (!player || round.throws.length === 0) {
+    if (!player) {
       return;
     }
 
