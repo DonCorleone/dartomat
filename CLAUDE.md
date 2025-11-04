@@ -13,13 +13,17 @@ in this mode, the current player calculates its points by himself
 in this mode, the current player writes the points of every projectile and the app calculates the round's point
 
 ### Touch Mode
-in this mode, the current player touches on an touch- devise on a dartboard where he / she hits the target. the app then shall calculate 
+In this mode, the current player touches on a touch device on a visual dartboard where they hit the target. The app calculates the score based on the touched position.
+
+**Layout Optimization:** Touch mode uses a two-column layout optimized for tablet/touch devices:
+- **Left Sidebar (320px):** Contains compact header with "New Game" button, scoreboard, current player info, current round display, and action buttons
+- **Right Area (flexible):** Large interactive dartboard that scales to fill available space, maximizing touch accuracy
 
 ### Rules
-with this app, the players should be able to play all well known darts mode (101, 301, 501 etc..)
+With this app, players can play all well-known darts modes (101, 301, 501, etc.)
 
 ### Players
-One or many Players shall be able to enter their names and count their scores.
+One or many players can enter their names and count their scores.
 
 ## Development Commands
 
@@ -82,3 +86,43 @@ Strict mode enabled with:
 
 ### Signal-Based Reactivity
 The codebase uses Angular signals (see `App` component using `signal()`). Prefer signals over traditional observables for local component state.
+
+## Component Structure
+
+### Core Components
+
+#### Game Container (`game-container`)
+Main container that orchestrates the game flow. Conditionally renders different layouts based on input mode:
+- Touch mode: Renders `touch-mode` component with optimized layout (no separate header)
+- Other modes: Renders game header, scoreboard, and respective input mode components
+
+#### Scoreboard (`scoreboard`)
+Displays all players with their current scores. Adapts layout based on context:
+- Touch mode: Embedded in left sidebar without height constraints
+- Other modes: Fixed height with scrolling for many players
+
+#### Touch Mode (`touch-mode`)
+Self-contained component for touch input with built-in two-column layout:
+- Includes its own header, scoreboard, and controls in left sidebar
+- SVG dartboard with click/touch detection for score input
+- Visual hit markers showing where darts landed
+- Calculates scores based on dartboard geometry (doubles, triples, bull)
+
+#### Input Mode (`input-mode`)
+Manual score entry mode where players input individual dart values.
+
+#### Calculating Mode (`calculating-mode`)
+Simple mode where players calculate and enter their round total.
+
+### Services
+
+#### GameStateService (`game-state`)
+Central state management using Angular signals:
+- Manages players, scores, rounds, and game flow
+- Validates moves and handles win conditions
+- Provides computed values for reactive UI updates
+
+#### ScoreService (`score`)
+Score validation and calculation utilities:
+- Creates and validates dart throws
+- Ensures score integrity (e.g., valid dart values, multipliers)

@@ -8,38 +8,34 @@
     </div>
 
     <div class="score-input-section">
-      <label for="score-input">Enter your round score:</label>
-      <input
-        id="score-input"
-        type="number"
-        min="0"
-        max="180"
-        placeholder="0-180"
-        [ngModel]="scoreInput()"
-        (ngModelChange)="scoreInput.set($event)"
-        (keyup.enter)="submitScore()" />
+      <label>Enter your round score:</label>
+      <div class="display">
+        {{ displayValue() || '0' }}
+      </div>
 
       @if (errorMessage()) {
         <div class="error-message">{{ errorMessage() }}</div>
       }
-
-      <button class="submit-btn" (click)="submitScore()">
-        Submit Score
-      </button>
     </div>
 
-    <div class="quick-scores">
-      <h4>Quick Scores</h4>
-      <div class="quick-score-grid">
-        <button (click)="quickScore(26)">26</button>
-        <button (click)="quickScore(41)">41</button>
-        <button (click)="quickScore(45)">45</button>
-        <button (click)="quickScore(60)">60</button>
-        <button (click)="quickScore(81)">81</button>
-        <button (click)="quickScore(85)">85</button>
-        <button (click)="quickScore(100)">100</button>
-        <button (click)="quickScore(180)">180</button>
-      </div>
+    <div class="numpad">
+      <button class="numpad-btn" (click)="appendDigit('7')">7</button>
+      <button class="numpad-btn" (click)="appendDigit('8')">8</button>
+      <button class="numpad-btn" (click)="appendDigit('9')">9</button>
+
+      <button class="numpad-btn" (click)="appendDigit('4')">4</button>
+      <button class="numpad-btn" (click)="appendDigit('5')">5</button>
+      <button class="numpad-btn" (click)="appendDigit('6')">6</button>
+
+      <button class="numpad-btn" (click)="appendDigit('1')">1</button>
+      <button class="numpad-btn" (click)="appendDigit('2')">2</button>
+      <button class="numpad-btn" (click)="appendDigit('3')">3</button>
+
+      <button class="numpad-btn clear-btn" (click)="clear()">C</button>
+      <button class="numpad-btn" (click)="appendDigit('0')">0</button>
+      <button class="numpad-btn backspace-btn" (click)="backspace()">←</button>
+
+      <button class="submit-btn" (click)="submitScore()">Submit Score</button>
     </div>
   }
 </div>
